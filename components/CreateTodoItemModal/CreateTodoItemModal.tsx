@@ -1,5 +1,5 @@
 import {FC, useState} from 'react';
-import {Modal, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, Modal, StyleSheet, Text, TextInput, View} from 'react-native';
 import type {CreateTodoItemModalProps} from './types';
 import {Colors} from '../../colors';
 import DatePicker from 'react-native-date-picker';
@@ -18,7 +18,10 @@ export const CreateTodoItemModal: FC<CreateTodoItemModalProps> = ({
 
   return (
     <>
-      <Modal visible={showModal} onRequestClose={onModalClose}>
+      <Modal
+        visible={showModal}
+        onRequestClose={onModalClose}
+        presentationStyle="pageSheet">
         <View style={styles.modalContainer}>
           <View style={styles.itemsContainer}>
             <View style={styles.textInputContainer}>
@@ -32,6 +35,18 @@ export const CreateTodoItemModal: FC<CreateTodoItemModalProps> = ({
                 onPress={() => setShowDatePicker(true)}>
                 {new Date(date).toDateString()}
               </Text>
+            </View>
+            <View style={styles.buttonsContainer}>
+              <Button
+                title="cancel"
+                color={Colors.red}
+                onPress={onModalClose}
+              />
+              <Button
+                title="submit"
+                color={Colors.blue}
+                onPress={onModalClose}
+              />
             </View>
           </View>
         </View>
@@ -83,5 +98,9 @@ const styles = StyleSheet.create({
 
   dateContainer: {
     marginTop: 10,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
 });

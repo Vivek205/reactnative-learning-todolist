@@ -2,6 +2,7 @@ import {FC} from 'react';
 import type {HeaderProps} from './types';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from '@react-native-vector-icons/ant-design';
+import {Colors} from '../../colors';
 
 export const Header: FC<HeaderProps> = () => (
   <View style={styles.container}>
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
   },
   title: {fontWeight: 'bold', fontSize: 26},
   icon: {
-    color: '#007AFF',
+    color: Colors.blue,
     fontSize: 26,
   },
 });
