@@ -176,4 +176,4 @@ export const initialMockItems: TodoItem[] = [
     isMarkedComplete: true,
     date: 1710952000000,
   },
-].slice(0, 3);
+];

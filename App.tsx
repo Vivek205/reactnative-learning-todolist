@@ -50,29 +50,32 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaView>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
-          <Header />
-          <Searchbar />
-          <Toolbar />
-          {/* TODO: Replace this with Section list to show Completed task in separate section */}
-          <FlatList
-            data={todoItemList}
-            renderItem={({item: {id, title, date, isMarkedComplete}}) => (
-              <TodoItem
-                id={id}
-                title={title}
-                date={date}
-                isMarkedComplete={isMarkedComplete}
-                onDelete={onItemDelete}
-                onEdit={onItemEdit}
-                toggleIsMarkedComplete={toggleIsMarkedComplete}
-              />
-            )}
-            keyExtractor={({id}) => id}
-          />
-        </View>
-      </TouchableWithoutFeedback>
+      <View style={styles.container}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View>
+            <Header />
+            <Searchbar />
+            <Toolbar />
+          </View>
+        </TouchableWithoutFeedback>
+        {/* TODO: Replace this with Section list to show Completed task in separate section */}
+        <FlatList
+          data={todoItemList}
+          renderItem={({item: {id, title, date, isMarkedComplete}}) => (
+            <TodoItem
+              id={id}
+              title={title}
+              date={date}
+              isMarkedComplete={isMarkedComplete}
+              onDelete={onItemDelete}
+              onEdit={onItemEdit}
+              toggleIsMarkedComplete={toggleIsMarkedComplete}
+            />
+          )}
+          keyExtractor={({id}) => id}
+        />
+      </View>
+
       <CreateTodoItemModal
         showModal={Boolean(itemToBeEdited)}
         id={itemToBeEdited?.id}
