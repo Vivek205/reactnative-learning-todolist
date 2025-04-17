@@ -1,5 +1,13 @@
 import {FC, useState} from 'react';
-import {Button, Modal, StyleSheet, Text, TextInput, View} from 'react-native';
+import {
+  Button,
+  Modal,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import type {CreateTodoItemModalProps} from './types';
 import {Colors} from '../../colors';
 import DatePicker from 'react-native-date-picker';
@@ -24,6 +32,9 @@ export const CreateTodoItemModal: FC<CreateTodoItemModalProps> = ({
         presentationStyle="pageSheet">
         <View style={styles.modalContainer}>
           <View style={styles.itemsContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>Edit Task</Text>
+            </View>
             <View style={styles.textInputContainer}>
               <Text>Title</Text>
               <TextInput defaultValue={title} style={styles.textInput} />
@@ -50,20 +61,33 @@ export const CreateTodoItemModal: FC<CreateTodoItemModalProps> = ({
             </View>
           </View>
         </View>
-
-        <DatePicker
-          open={showDatePicker}
-          date={new Date(date)}
-          onConfirm={newDate => {
-            console.log('date', newDate);
-            setShowDatePicker(false);
-          }}
-          onCancel={() => {
-            setShowDatePicker(false);
-          }}
-          mode="date"
-          style={{width: null}}
-        />
+        {showDatePicker && (
+          <SafeAreaView>
+            <View style={styles.datePickerContainer}>
+              <DatePicker
+                open={showDatePicker}
+                date={new Date(date)}
+                onConfirm={newDate => {
+                  console.log('date', newDate);
+                  setShowDatePicker(false);
+                }}
+                onCancel={() => {
+                  setShowDatePicker(false);
+                }}
+                mode="date"
+                style={{width: null}}
+              />
+              <View style={styles.datePickerActionsContainer}>
+                <Button
+                  title="cancel"
+                  color={Colors.red}
+                  onPress={() => setShowDatePicker(false)}
+                />
+                <Button title="confirm" color={Colors.blue} />
+              </View>
+            </View>
+          </SafeAreaView>
+        )}
       </Modal>
     </>
   );
@@ -82,6 +106,14 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     width: '100%',
+  },
+  titleContainer: {
+    alignItems: 'center',
+    paddingBottom: 10,
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: '500',
   },
   textInputContainer: {
     flexDirection: 'row',
@@ -102,5 +134,13 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
+    paddingTop: 10,
+  },
+  datePickerContainer: {
+    // marginBottom: 30,
+  },
+  datePickerActionsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 });

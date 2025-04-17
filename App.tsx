@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Keyboard,
@@ -14,6 +14,7 @@ import {Header} from './components/Header';
 import type {TodoItem as TodoItemState} from './types';
 import {initialMockItems} from './data/todo-items-mock';
 import {CreateTodoItemModal} from './components/CreateTodoItemModal';
+import { getTodoItems } from './data/getTodoItems';
 
 function App(): React.JSX.Element {
   const [todoItemList, setTodoItemList] =
@@ -21,6 +22,10 @@ function App(): React.JSX.Element {
   const [itemToBeEdited, setItemToBeEdited] = useState<
     TodoItemState | undefined
   >(undefined);
+
+  useEffect(() => {
+    getTodoItems();
+  }, []);
 
   const onItemEdit = (id: string) => {
     const foundItem = todoItemList.find(item => item.id === id);
